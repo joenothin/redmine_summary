@@ -9,15 +9,6 @@ class SummariesController < ApplicationController
         end
         @projects = scope.to_a
       }
-      format.api  {
-        @offset, @limit = api_offset_and_limit
-        @project_count = scope.count
-        @projects = scope.offset(@offset).limit(@limit).to_a
-      }
-      format.atom {
-        projects = scope.reorder(:created_on => :desc).limit(Setting.feeds_limit.to_i).to_a
-        render_feed(projects, :title => "#{Setting.app_title}: #{l(:label_project_latest)}")
-      }
     end
   end
 
@@ -32,16 +23,26 @@ class SummariesController < ApplicationController
         end
         @projects = scope.to_a
       }
-      format.api  {
-        @offset, @limit = api_offset_and_limit
-        @project_count = scope.count
-        @projects = scope.offset(@offset).limit(@limit).to_a
-      }
-      format.atom {
-        projects = scope.reorder(:created_on => :desc).limit(Setting.feeds_limit.to_i).to_a
-        render_feed(projects, :title => "#{Setting.app_title}: #{l(:label_project_latest)}")
-      }
     end
-    @project_name = (params[:id]).capitalize
+    # @project_name = (params[:id]).capitalize
   end
+
+  def new
+    @summary = Summary.new
+  end
+
+  def create
+    @summary = Summary.new(summary_params)
+    if @summary.save
+      redirect_to action: 'show', id: @summary.id
+    else
+      render 'index'
+    end
+  end
+
+private
+  def summary_params
+    params.require(:summary).permit(:title, :status)
+  end
+
 end

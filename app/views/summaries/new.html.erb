@@ -1,15 +1,8 @@
 <h2>New Note</h2>
 
-<% if @note.errors.any? %>
-	<ul>
-		<% @note.errors.full_message.each do |msg| %>
-			<li> <%= msg %> </li>
-		<% end %>
-	</ul>
-<% end %>
 
 
-<%= form_for :note do |n| %>
+<%= form_for @summary do |n| %>
 	<p>
 		<%= n.label :title %> </br/>
 		<%= n.text_field :title %>
