@@ -1,6 +1,19 @@
 class NotesController < ApplicationController
+	def index
+    scope = Project.visible.sorted
 
+    respond_to do |format|
+      format.html {
+        unless params[:closed]
+          scope = scope.active
+        end
+        @projects = scope.to_a
+      }
+    end
+  end
+  
 	def new
+		@summary = Summary.find(params[:id])
 		@note = Note.new
 	end
 	

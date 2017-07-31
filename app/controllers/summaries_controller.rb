@@ -1,5 +1,6 @@
 class SummariesController < ApplicationController
   def index
+
     scope = Project.visible.sorted
 
     respond_to do |format|
@@ -13,7 +14,7 @@ class SummariesController < ApplicationController
   end
 
   def show
-
+    
     scope = Project.visible.sorted
 
     respond_to do |format|
@@ -24,7 +25,7 @@ class SummariesController < ApplicationController
         @projects = scope.to_a
       }
     end
-    # @project_name = (params[:id]).capitalize
+    @project_name = (params[:project])
   end
 
   def new

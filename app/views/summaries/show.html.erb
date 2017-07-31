@@ -1,5 +1,15 @@
 <h2><%= @project_name %> Summary</h2>
 
+
+<div class="splitcontentright">
+	<div>
+		<a href="#">Newer  </a><span>     July 30, 2017    </span><a href="#">  Older</a>
+	</div>
+	<p>This is where project notes go. So that everyone can easily access the latest comment and stay on the same page. </p>
+	<%= button_to "New Note", new_project_summary_path, :id => "open-contacts-dialog-btn",
+      :class => "inbox-sf-add-btn tip", :method => :get %>
+</div>
+
 <div id="projects-index">
-<%= render_project_hierarchy(@projects) %>
+<%= render_project_hierarchy(@projects)%>
 </div>
